@@ -1,7 +1,51 @@
-local StarterGui = game:GetService("StarterGui")
+-- Create the screen GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "ErrorNotification"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
 
-StarterGui:SetCore("SendNotification", {
-    Title = "Error!",
-    Text = "Dahood Script is Currently Down",
-    Duration = 5
-})
+-- Create the main frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 150)
+frame.Position = UDim2.new(0.5, -150, 0.5, -75)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+-- Add a UI corner for round edges
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 12)
+corner.Parent = frame
+
+-- Add the error label
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(1, -20, 0.6, -10)
+label.Position = UDim2.new(0, 10, 0, 10)
+label.BackgroundTransparency = 1
+label.Text = "⚠️ Error!\nDa Hood Script is Currently Down"
+label.TextColor3 = Color3.fromRGB(255, 85, 85)
+label.TextScaled = true
+label.Font = Enum.Font.GothamBold
+label.TextWrapped = true
+label.Parent = frame
+
+-- Add the OK button
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0.4, 0, 0.25, 0)
+button.Position = UDim2.new(0.3, 0, 0.7, 0)
+button.Text = "OK"
+button.BackgroundColor3 = Color3.fromRGB(255, 85, 85)
+button.TextColor3 = Color3.new(1, 1, 1)
+button.Font = Enum.Font.GothamBold
+button.TextScaled = true
+button.Parent = frame
+
+-- Round the button
+local btnCorner = Instance.new("UICorner")
+btnCorner.CornerRadius = UDim.new(0, 8)
+btnCorner.Parent = button
+
+-- Button click to destroy the UI
+button.MouseButton1Click:Connect(function()
+	screenGui:Destroy()
+end)
